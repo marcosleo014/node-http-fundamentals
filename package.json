@@ -1,0 +1,12 @@
+{
+  "name": "fundamentos-api-node",
+  "version": "1.0.0",
+  "description": "Estudo prático de fundamentos de Node.js e arquitetura de APIs, criando um servidor HTTP nativo e realizando testes de requisições com o Insomnia.",
+  "main": "index.js",
+  "scripts": {
+    "main": "node src/server.js"
+  },
+  "author": "Marcos Leonan",
+  "license": "ISC",
+  "type": "module"
+}
