@@ -1,5 +1,8 @@
 import { routes } from '../routes.js';
 import { extractQueryParams } from '../utils/parseUrl.js';
+import { Database } from "../utils/database.js";
+
+const database = new Database();
 
 export function routeHandler(request, response) {
     // captura do pathName e queryString
@@ -16,7 +19,7 @@ export function routeHandler(request, response) {
         // inserção da propriedade query no objeto request
         request.query = queryString ? extractQueryParams(queryString) : {};
 
-        return route.controller(request,response);
+        return route.controller({request,response, database});
     };
     return response.writeHead(404).end('Rota não encontrada');
 };
