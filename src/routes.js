@@ -1,4 +1,4 @@
-import { parseRoute } from "./utils/parseRoutePath.js";
+import { parseRoute } from "./utils/parseUrl.js";
 
 export const routes = [
     {
@@ -6,6 +6,7 @@ export const routes = [
         path: '/products',
         controller: (request, response) => {
             response.statusCode = 200;
+            console.log(request.query);
             return response.end('Lista de produtos');
         }
     },
@@ -22,8 +23,7 @@ export const routes = [
         method: 'DELETE',
         path: '/products/:id',
         controller: (request, response) => {
-            console.log(request.params);
-            return response.end('Produto excluído');
+            return response.end(`Produto de ID ${request.params.id} foi excluído`);
         }
     }
 ].map((route) => {
