@@ -7,13 +7,10 @@ export const routes = [
         controller: ({request, response, database}) => {
             response.statusCode = 200;
             const products = database.select('products');
-            response.write('Lista de produtos: ');
             try {
-                for (const product of products) {
-                    response.write(`\n${product.name} por R$${product.price} com ID: ${product.id}`);
-                };
+                response.write(JSON.stringify(products));
             } catch (error) {
-                response.write('Não há produtos cadastrados')
+                response.write('[]')
             }
             return response.end();
         }
@@ -24,8 +21,7 @@ export const routes = [
         controller: async ({request, response, database}) => {
             response.statusCode = 201;
             await database.insert('products', request.body);
-            const nameProduct = request.body.name
-            return response.end('Produto cadastrado com sucesso: ' + nameProduct);
+            return response.end();
         }
     },
     {
@@ -35,9 +31,9 @@ export const routes = [
             try {
                 const id = request.params.id
                 const productDeleted = await database.delete('products', id);
-                response.write(`${productDeleted.name} foi deletado`);
+                response.write(JSON.stringify(productDeleted));
             } catch (error) {
-                response.write('produto não encontrado')
+                response.write('{}');
             };
             return response.end();
         }
