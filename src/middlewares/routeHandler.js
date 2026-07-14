@@ -2,7 +2,8 @@ import { routes } from '../routes.js';
 import { extractQueryParams } from '../utils/parseUrl.js';
 import { Database } from "../utils/database.js";
 
-const database = new Database();
+// Instanciamento do objeto Database por meio de uma factory assíncrona, garantindo que os dados sejam carregados antes da utilização da instância
+const database = await Database.create();
 
 export function routeHandler(request, response) {
     // captura do pathName e queryString
