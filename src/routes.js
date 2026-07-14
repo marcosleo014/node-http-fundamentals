@@ -21,9 +21,9 @@ export const routes = [
     {
         method: 'POST',
         path: '/products',
-        controller: ({request, response, database}) => {
+        controller: async ({request, response, database}) => {
             response.statusCode = 201;
-            database.insert('products', request.body);
+            await database.insert('products', request.body);
             const nameProduct = request.body.name
             return response.end('Produto cadastrado com sucesso: ' + nameProduct);
         }
@@ -31,11 +31,10 @@ export const routes = [
     {
         method: 'DELETE',
         path: '/products/:id',
-        controller: ({request, response, database}) => {
+        controller: async ({request, response, database}) => {
             try {
                 const id = request.params.id
-                const productDeleted = database.delete('products', id);
-                console.log(id, productDeleted);
+                const productDeleted = await database.delete('products', id);
                 response.write(`${productDeleted.name} foi deletado`);
             } catch (error) {
                 response.write('produto não encontrado')
